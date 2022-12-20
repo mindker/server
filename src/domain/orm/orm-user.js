@@ -62,7 +62,6 @@ exports.Login = async (nickname, req) => {
     });
 
     if (bcrypt.compareSync(req.body.password, userInfo.password)) {
-      /* userInfo.password = null; */
       const token = jwt.sign(
         {
           name: userInfo.name,
@@ -112,7 +111,6 @@ exports.Update = async (id, updatedUser, req) => {
     } else if (updatedUser.password == undefined) {
       updatedUser.password = olderUser.password;
     }
-    console.log('la contraseña updateada: ', updatedUser.password);
 
     return await conn.db.connMongo.User.findByIdAndUpdate(id, updatedUser);
   } catch (error) {
